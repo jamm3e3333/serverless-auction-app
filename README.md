@@ -5,3 +5,8 @@
 ```
 sls create --template-url https://github.com/codingly-io/sls-base --name aws-serverless-auction-app
 ```
+
+## command to delete the whole application
+```
+sls remove -v
+```

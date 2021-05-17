@@ -16,5 +16,8 @@
   },
   "dependencies": {
     "aws-sdk": "^2.639.0"
+  },
+  "scripts": {
+    "build": "sls deploy -v"
   }
 }
