@@ -15,9 +15,11 @@
     "webpack": "^4.35.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.639.0"
+    "aws-sdk": "^2.639.0",
+    "uuid": "^8.3.2"
   },
   "scripts": {
-    "build": "sls deploy -v"
+    "build": "sls deploy -v",
+    "create": "sls deploy -f createAuction -v"
   }
 }
