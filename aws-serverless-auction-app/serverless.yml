@@ -30,6 +30,27 @@ functions:
           method: post
           path: auction/create
 
+  getAuctions:
+    handler: src/handlers/getAuctions.handler
+    events:
+      - http:
+          method: get
+          path: auctions/get
+
+  getAuction:
+    handler: src/handlers/getAuction.handler
+    events:
+      - http:
+          method: get
+          path: auction/{id}
+
+  placeBid:
+    handler: src/handlers/placeBid.handler
+    events:
+      - http:
+          method: patch
+          path: auctions/{id}/bid
+
 custom:
   AuctionsTable:
     name:  !Ref AuctionsTable

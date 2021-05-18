@@ -20,7 +20,8 @@ $ sls deploy -f <name of the lambda function from .yml file> -v
 accessing the process variables for a cloud formation 
 
 -in .yml file
-Ref - every service return a name for a service ```!Ref <name of the resource```
+### functions b4 deploying
+Ref - every service return a name of a service ```!Ref <name of the resource```
 GetAtt - getting an arn of a service ```!GetAtt <name of the service>.Arn```
 
 -in .js file

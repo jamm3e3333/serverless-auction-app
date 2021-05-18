@@ -1,18 +1,24 @@
-const uuid = require('uuid');
-const AWS = require('aws-sdk');
+import { v1 as uuid } from 'uuid'; 
+import AWS from 'aws-sdk';
+import createError from 'http-errors';
+import commonMiddleware from '../lib/commonMiddleware';
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
-const hello = async(event, context) => {
+const createAuction = async(event, context) => {
   const datetime = new Date().toISOString();
-  const id = uuid.v1();
-  const { title } = JSON.parse(event.body);
+  const id = uuid();
+  const { title } = event.body;
   
   const auction = {
     id,
+    createdAt: datetime,
+    updatedAt: datetime,
     title,
     status: 'open',
-    createdAt: datetime
+    highestBid: {
+      amount: 0
+    }
   };
 
   const params = {
@@ -20,14 +26,21 @@ const hello = async(event, context) => {
     Item: auction
   };
 
-  await dynamoDB.put(params).promise();
+  try{
+    await dynamoDB.put(params).promise();
+    const response = {
+      statusCode: 201,
+      body: JSON.stringify(auction)
+    };
 
-  return {
-    statusCode: 201,
-    body: JSON.stringify(auction)
-   };
+    return response;
+  }
+  catch(err){
+    console.error(err);
+    throw new createError.InternalServerError(err);
+  }
 }
 
-export const handler = hello;
+export const handler = commonMiddleware(createAuction);
 
 
